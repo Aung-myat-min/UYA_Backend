@@ -1,1 +1,0 @@
-web: gunicorn UYA_website.wsgi
