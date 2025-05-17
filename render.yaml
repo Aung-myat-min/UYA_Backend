@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: django-backend
+    env: python
+    buildCommand: cd UYA_website && pip install -r requirements.txt
+    startCommand: cd UYA_website && gunicorn UYA_website.wsgi:application
