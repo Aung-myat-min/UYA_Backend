@@ -20,7 +20,7 @@ if not DATABASE_URL:
     raise ValueError("DATABASE_URL is not set in the .env file.")
 
 # Debug and hosts
-DEBUG = os.getenv('RENDER', '') != 'True'
+DEBUG = os.getenv('DEBUG') 
 ALLOWED_HOSTS = ['*']
 
 # Installed apps
