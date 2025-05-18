@@ -30,7 +30,8 @@ It provides the core functionality and API endpoints for the website.
    ```bash
    git clone https://github.com/htetarkar2246/UYA_Backend.git
    cd UYA_Backend
-  ```2. Create and activate a virtual environment:
+
+2. Create and activate a virtual environment:
   ```bash
   python -m venv venv
   source venv/bin/activate  
