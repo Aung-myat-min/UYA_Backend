@@ -21,6 +21,7 @@ if not DATABASE_URL:
 
 # Debug and hosts
 DEBUG = os.getenv('DEBUG') 
+
 ALLOWED_HOSTS = ['*']
 
 # Installed apps
@@ -33,12 +34,12 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "drf_yasg",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 # Middleware
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
