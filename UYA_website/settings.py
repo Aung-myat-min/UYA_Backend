@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "drf_yasg",
+    "core",
 ]
 
 # Middleware
@@ -72,6 +73,7 @@ TEMPLATES = [
 DATABASES = {
     'default': dj_database_url.parse(DATABASE_URL)
 }
+AUTH_USER_MODEL = 'core.CustomUser'
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
