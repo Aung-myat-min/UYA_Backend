@@ -6,4 +6,4 @@ services:
       python manage.py collectstatic --noinput
       python manage.py migrate
       python manage.py create_superuser_if_not_exists
-    startCommand: python manage.py migrate && gunicorn UYA_website.wsgi:application
+    startCommand: python manage.py makemigrations && python manage.py migrate && gunicorn UYA_website.wsgi:application
