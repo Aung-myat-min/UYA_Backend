@@ -65,11 +65,16 @@ python manage.py runserver
 API Documentation
 Interactive API docs are available via Swagger:
 
-Swagger UI: http://localhost:8000/swagger/
+Swagger UI: http://localhost:8000/swagger/ or https://uya-backend.onrender.com/swagger/
 
-ReDoc UI: http://localhost:8000/redoc/
+ReDoc UI: http://localhost:8000/redoc/ or https://uya-backend.onrender.com/redoc/
 
 These endpoints are also deployed and accessible on the production Render URL.
+
+Admin Dashboard 
+
+http://localhost:8000/admin or https://uya-backend.onrender.com/admin/ 
+Login using email and password 
 
 Deployment
 This project is deployed on Render.com using the following setup:
