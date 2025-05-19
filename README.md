@@ -105,6 +105,6 @@ Contact
 For questions or feedback, contact: htetarkarlevi@gmail.com
 
 License
-© UYA Organization — All rights reserved.
+© United Youth Association of Burma — All rights reserved.
 
 
