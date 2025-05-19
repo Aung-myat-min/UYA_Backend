@@ -34,5 +34,5 @@ class CustomUserAdmin(BaseUserAdmin):
 
     def has_delete_permission(self, request, obj=None):
         return request.user.is_superuser
-
+      
 admin.site.register(CustomUser, CustomUserAdmin)
