@@ -85,11 +85,17 @@ Procfile specifying the startup command
 Environment Variables
 Make sure to set the following environment variables in .env or your deployment environment:
 
-Variable	Description
-DEBUG	Enable/disable debug mode
-SECRET_KEY	Django secret key
-DATABASE_URL	Database connection string
+| Variable                    | Description                       |
+| --------------------------- | --------------------------------- |
+| `DEBUG`                     | Enable/disable debug mode         |
+| `SECRET_KEY`                | Django secret key                 |
+| `DATABASE_URL`              | PostgreSQL database URL           |
+| `DJANGO_SUPERUSER_USERNAME` | Admin username for auto superuser |
+| `DJANGO_SUPERUSER_EMAIL`    | Admin email                       |
+| `DJANGO_SUPERUSER_PASSWORD` | Admin password                    |
 
+The superuser will be auto-created at deployment if it doesn't exist.
+ 
 Contact
 For questions or feedback, contact: htetarkarlevi@gmail.com
 
