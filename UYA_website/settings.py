@@ -12,12 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Load environment variables
 SECRET_KEY = os.getenv('SECRET_KEY')
 DATABASE_URL = os.getenv('DATABASE_URL')
-
-# Validation
-if not SECRET_KEY:
-    raise ValueError("SECRET_KEY is not set in the .env file.")
-if not DATABASE_URL:
-    raise ValueError("DATABASE_URL is not set in the .env file.")
+CLOUDINARY_URL = os.getenv('CLOUDINARY_URL')
 
 # Debug and hosts
 DEBUG = os.getenv('DEBUG') 
@@ -34,8 +29,11 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "drf_yasg",
+    "cloudinary",
+    "cloudinary_storage",
     "core",
     "contact",
+    "projects",
 ]
 
 # Middleware
@@ -74,6 +72,12 @@ TEMPLATES = [
 DATABASES = {
     'default': dj_database_url.parse(DATABASE_URL)
 }
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+CLOUDINARY_URL = os.getenv('CLOUDINARY_URL')
+
+
 AUTH_USER_MODEL = 'core.CustomUser'
 
 # Password validation
