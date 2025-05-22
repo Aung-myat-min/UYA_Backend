@@ -79,9 +79,15 @@ It provides the core functionality and API endpoints for the website.
 API Documentation
 Interactive API docs are available via Swagger:
 
-Swagger UI: http://localhost:8000/swagger/ or https://uya-backend.onrender.com/swagger/
+Swagger UI:
+ ```bash
+http://localhost:8000/swagger/ or https://uya-backend.onrender.com/swagger/
+```
 
-ReDoc UI: http://localhost:8000/redoc/ or https://uya-backend.onrender.com/redoc/
+ReDoc UI:
+ ```bash
+http://localhost:8000/redoc/ or https://uya-backend.onrender.com/redoc/
+```
 
 These endpoints are also deployed and accessible on the production Render URL.
 
@@ -92,11 +98,13 @@ This endpoint:
 Sends the message to your organizational email
 
 Automatically sends an acknowledgment reply to the sender
-
+ ```bash
 POST /api/contact/
+```
 
 Request Example: 
 
+ ```bash
 {
   "name": "John Doe",
   "email": "john@example.com",
@@ -116,10 +124,12 @@ Response:
     "message": "I'd love to get involved!"
   }
 }
+```
 
 Admin Dashboard 
-
-http://localhost:8000/admin or https://uya-backend.onrender.com/admin/ 
+ ```bash
+http://localhost:8000/admin or https://uya-backend.onrender.com/admin/
+```
 Login using email and password 
 
 Superuser-Only Features
