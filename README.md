@@ -134,10 +134,10 @@ http://localhost:8000/admin or https://uya-backend.onrender.com/admin/
 Login using email and password 
 
 ### Superuser-Only Features
--Full audit log via Django LogEntry
--View change details, deletions, and edits
--User Management (Create/Read/Delete)
--User status controls (active/inactive, staff toggle)
+- Full audit log via Django LogEntry
+- View change details, deletions, and edits
+- User Management (Create/Read/Delete)
+- User status controls (active/inactive, staff toggle)
 
 ### Image Upload (Cloudinary)
 Images uploaded via admin or API are stored on Cloudinary.
@@ -148,10 +148,10 @@ CLOUDINARY_URL=cloudinary://<API_KEY>:<API_SECRET>@<CLOUD_NAME>
 ### Deployment
 This project is deployed on Render.com using the following setup:
 
--Python environment
--render.yaml configuration file for service setup
--Gunicorn as the production WSGI server
--Procfile specifying the startup command
+- Python environment
+- render.yaml configuration file for service setup
+- Gunicorn as the production WSGI server
+- Procfile specifying the startup command
 
 ## Environment Variables
 Make sure to set the following environment variables in .env or your deployment environment:
