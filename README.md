@@ -76,8 +76,8 @@ cd UYA_Backend
    python manage.py runserver
    ```
 
-API Documentation
-Interactive API docs are available via Swagger:
+### API Documentation
+## Interactive API docs are available via Swagger:
 
 Swagger UI:
  ```bash
@@ -91,9 +91,10 @@ http://localhost:8000/redoc/ or https://uya-backend.onrender.com/redoc/
 
 These endpoints are also deployed and accessible on the production Render URL.
 
-Contact Form Email
+### Contact Form Email
 Users can send messages using the Contact Us form from the frontend.
-This endpoint:
+
+## This endpoint:
 
 Sends the message to your organizational email
 
@@ -126,38 +127,33 @@ Response:
 }
 ```
 
-Admin Dashboard 
+### Admin Dashboard 
  ```bash
 http://localhost:8000/admin or https://uya-backend.onrender.com/admin/
 ```
 Login using email and password 
 
-Superuser-Only Features
-Full audit log via Django LogEntry
+### Superuser-Only Features
+-Full audit log via Django LogEntry
+-View change details, deletions, and edits
+-User Management (Create/Read/Delete)
+-User status controls (active/inactive, staff toggle)
 
-View change details, deletions, and edits
-
-User Management (Create/Read/Delete)
-User status controls (active/inactive, staff toggle)
-
-Image Upload (Cloudinary)
+### Image Upload (Cloudinary)
 Images uploaded via admin or API are stored on Cloudinary.
 
 Environment variable required:
 CLOUDINARY_URL=cloudinary://<API_KEY>:<API_SECRET>@<CLOUD_NAME>
 
-Deployment
+### Deployment
 This project is deployed on Render.com using the following setup:
 
-Python environment
+-Python environment
+-render.yaml configuration file for service setup
+-Gunicorn as the production WSGI server
+-Procfile specifying the startup command
 
-render.yaml configuration file for service setup
-
-Gunicorn as the production WSGI server
-
-Procfile specifying the startup command
-
-Environment Variables
+## Environment Variables
 Make sure to set the following environment variables in .env or your deployment environment:
 
 | Variable                    | Description                       |
@@ -174,10 +170,10 @@ Make sure to set the following environment variables in .env or your deployment 
 
 The superuser will be auto-created at deployment if it doesn't exist.
  
-Contact
+### Contact
 For questions or feedback, contact: htetarkarlevi@gmail.com
 
-License
+### License
 © United Youth Association of Burma — All rights reserved.
 
 
