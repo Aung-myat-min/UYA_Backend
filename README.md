@@ -32,10 +32,10 @@ It provides the core functionality and API endpoints for the website.
 ### Setup Instructions
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/htetarkar2246/UYA_Backend.git
-   cd UYA_Backend
-   ```
+```bash
+git clone https://github.com/htetarkar2246/UYA_Backend.git
+cd UYA_Backend
+```
 2. Create and activate a virtual environment:
   ```bash
   python -m venv venv
