@@ -143,7 +143,9 @@ Login using email and password
 Images uploaded via admin or API are stored on Cloudinary.
 
 Environment variable required:
+```bash
 CLOUDINARY_URL=cloudinary://<API_KEY>:<API_SECRET>@<CLOUD_NAME>
+```
 
 ### Deployment
 This project is deployed on Render.com using the following setup:
