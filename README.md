@@ -45,35 +45,36 @@ It provides the core functionality and API endpoints for the website.
   ```bash
   venv\Scripts\activate
   ```
+
 3.Install dependencies:
-```bash
-pip install -r requirements.txt
-```
+   ```bash
+   pip install -r requirements.txt
+   ```
 
 4.Create .env file based on .env.example and fill in environment variables:
-```bash
-DEBUG=True
-DATABASE_URL=your-database-url
-SECRET_KEY=your-secret-key
-DJANGO_SUPERUSER_USERNAME=<SUPERUSER_USERNAME>
-DJANGO_SUPERUSER_EMAIL=<SUPERUSER_EMAIL>
-DJANGO_SUPERUSER_PASSWORD=<SUPERUSER_PASSWORD>
-CLOUDINARY_URL=cloudinary://<API_KEY>:<API_SECRET>@<CLOUD_NAME>
-EMAIL_HOST_USER=<HOST_EMAIL>
-EMAIL_HOST_PASSWORD=<HOST_PASSWORD>
-DEFAULT_FROM_EMAIL=<DEFAULT_EMAIL>
-ORG_EMAIL=<ORG_EMAIL>
-```
+   ```bash
+   DEBUG=True
+   DATABASE_URL=your-database-url
+   SECRET_KEY=your-secret-key
+   DJANGO_SUPERUSER_USERNAME=<SUPERUSER_USERNAME>
+   DJANGO_SUPERUSER_EMAIL=<SUPERUSER_EMAIL>
+   DJANGO_SUPERUSER_PASSWORD=<SUPERUSER_PASSWORD>
+   CLOUDINARY_URL=cloudinary://<API_KEY>:<API_SECRET>@<CLOUD_NAME>
+   EMAIL_HOST_USER=<HOST_EMAIL>
+   EMAIL_HOST_PASSWORD=<HOST_PASSWORD>
+   DEFAULT_FROM_EMAIL=<DEFAULT_EMAIL>
+   ORG_EMAIL=<ORG_EMAIL>
+   ```
 
 5.Run migrations:
-```bash
-python manage.py migrate
-```
+   ```bash
+   python manage.py migrate
+   ```
 
 6.Start the development server:
-```bash
-python manage.py runserver
-```
+   ```bash
+   python manage.py runserver
+   ```
 
 API Documentation
 Interactive API docs are available via Swagger:
