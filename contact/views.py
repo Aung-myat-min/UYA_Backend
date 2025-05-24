@@ -38,3 +38,4 @@ class ContactMessageView(APIView):
             "errors": serializer.errors,
             "message": "Message submission failed"
         }, status=status.HTTP_400_BAD_REQUEST)
+
