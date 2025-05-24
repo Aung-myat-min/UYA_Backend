@@ -211,11 +211,43 @@ class SocialPlatformAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         obj.clean()
         super().save_model(request, obj, form, change)
+    
+    def has_module_permission(self, request):
+        return request.user.is_staff
+
+    def has_view_permission(self, request, obj=None):
+        return request.user.is_staff
+
+    def has_add_permission(self, request):
+        return request.user.is_staff
+
+    def has_change_permission(self, request, obj=None):
+        return request.user.is_staff
+
+    def has_delete_permission(self, request, obj=None):
+        return request.user.is_staff
 
 admin.site.register(SocialPlatform, SocialPlatformAdmin)
+
 
 class PartnerOrganizationAdmin(admin.ModelAdmin):
     list_display = ('org_name', 'website')
     search_fields = ('org_name', 'website')
+    
+        
+    def has_module_permission(self, request):
+        return request.user.is_staff
+
+    def has_view_permission(self, request, obj=None):
+        return request.user.is_staff
+
+    def has_add_permission(self, request):
+        return request.user.is_staff
+
+    def has_change_permission(self, request, obj=None):
+        return request.user.is_staff
+
+    def has_delete_permission(self, request, obj=None):
+        return request.user.is_staff
     
 admin.site.register(PartnerOrganization, PartnerOrganizationAdmin)
