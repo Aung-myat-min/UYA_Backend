@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from core.models import CustomUser, PartnerOrganization
+from core.models import CustomUser, SocialPlatform, PartnerOrganization
 from django.contrib.admin.models import LogEntry
 from django.contrib.admin.filters import DateFieldListFilter
 from django.urls import reverse, NoReverseMatch
@@ -198,7 +198,7 @@ class CustomUserAdmin(BaseUserAdmin):
 admin.site.register(CustomUser, CustomUserAdmin)
 
 
-class PartnerOrganizationAdmin(admin.ModelAdmin):
+class SocialPlatformAdmin(admin.ModelAdmin):
     list_display = ('platform_name', 'url', 'icon_class', 'icon_img')
     search_fields = ('platform_name', 'icon_class', 'url')
     readonly_fields = ()
@@ -212,4 +212,10 @@ class PartnerOrganizationAdmin(admin.ModelAdmin):
         obj.clean()
         super().save_model(request, obj, form, change)
 
+admin.site.register(SocialPlatform, SocialPlatformAdmin)
+
+class PartnerOrganizationAdmin(admin.ModelAdmin):
+    list_display = ('org_name', 'website')
+    search_fields = ('org_name', 'website')
+    
 admin.site.register(PartnerOrganization, PartnerOrganizationAdmin)
