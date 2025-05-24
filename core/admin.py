@@ -233,7 +233,6 @@ admin.site.register(SocialPlatform, SocialPlatformAdmin)
 class PartnerOrganizationAdmin(admin.ModelAdmin):
     list_display = ('org_name', 'website')
     search_fields = ('org_name', 'website')
-    
         
     def has_module_permission(self, request):
         return request.user.is_staff
