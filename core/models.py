@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.db import models
 from django.utils import timezone
-
+from django.core.exceptions import ValidationError
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -33,5 +33,17 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
 
-# class PartnerOrganization(models.Model):
-    
+class PartnerOrganization(models.Model):
+    platform_name = models.CharField(max_length=100)
+    url = models.URLField()
+    icon_class = models.CharField(max_length=100, blank=True)
+    icon_img = models.ImageField(upload_to="uya/partners/", blank=True, null=True) 
+
+    def clean(self):
+        if self.icon_class and self.icon_img:
+            raise ValidationError("Only one of icon_class or icon_img should be provided.")
+        if not self.icon_class and not self.icon_img:
+            raise ValidationError("You must provide either icon_class or icon_img.")
+
+    def __str__(self):
+        return self.platform_name
