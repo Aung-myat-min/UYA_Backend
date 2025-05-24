@@ -14,8 +14,8 @@ class ContactMessageView(APIView):
             # Send email to organization
             send_mail(
                 subject=f"[UYA Website] {contact.subject}",
-                message=f"Name: {contact.name}\nEmail: {contact.email}\n\n{contact.message}",
-                from_email=settings.DEFAULT_FROM_EMAIL,
+                message=f"Name: {contact.sender}\nEmail: {contact.email}\n\n{contact.message}",
+                from_email=contact.email,
                 recipient_list=[settings.ORG_EMAIL],
             )
 
