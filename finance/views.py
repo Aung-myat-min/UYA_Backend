@@ -4,7 +4,7 @@ from rest_framework import status
 from .models import FinancialStatement
 from .serializers import FinancialStatementSerializer
 
-class FinancialStatementListView(APIView):
+class FinancialStatementListAPIView(APIView):
     def get(self, request):
         statements = FinancialStatement.objects.all().order_by('-release_date').filter(is_published=True)
         serializer = FinancialStatementSerializer(statements, many=True)

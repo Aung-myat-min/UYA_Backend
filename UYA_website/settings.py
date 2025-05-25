@@ -31,10 +31,12 @@ INSTALLED_APPS = [
     "drf_yasg",
     "cloudinary",
     "cloudinary_storage",
+    'django_json_widget',
     "core",
     "contact",
     "projects",
     "finance",
+    "charity_guide",
 ]
 
 # Middleware
