@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     "core",
     "contact",
     "projects",
+    "finance",
 ]
 
 # Middleware
