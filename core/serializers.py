@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import SocialPlatform, PartnerOrganization
+from .models import SocialPlatform, PartnerOrganization, ActivityPhoto
 
 class SocialPlatformSerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,3 +9,9 @@ class PartnerOrganizationSerializer(serializers.ModelSerializer):
     class Meta:
         model = PartnerOrganization
         fields = "__all__"
+        
+class ActivityPhotoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ActivityPhoto
+        fields = '__all__'
+

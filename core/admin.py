@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from core.models import CustomUser, SocialPlatform, PartnerOrganization
+from core.models import CustomUser, SocialPlatform, PartnerOrganization, ActivityPhoto
 from django.contrib.admin.models import LogEntry
 from django.contrib.admin.filters import DateFieldListFilter
 from django.urls import reverse, NoReverseMatch
@@ -250,3 +250,26 @@ class PartnerOrganizationAdmin(admin.ModelAdmin):
         return request.user.is_staff
     
 admin.site.register(PartnerOrganization, PartnerOrganizationAdmin)
+
+
+class ActivityPhotoAdmin(admin.ModelAdmin):
+    list_display = ('caption', 'uploaded_at')
+    list_filter = ('uploaded_at',)
+    search_fields = ('caption',)
+        
+    def has_module_permission(self, request):
+        return request.user.is_staff
+
+    def has_view_permission(self, request, obj=None):
+        return request.user.is_staff
+
+    def has_add_permission(self, request):
+        return request.user.is_staff
+
+    def has_change_permission(self, request, obj=None):
+        return request.user.is_staff
+
+    def has_delete_permission(self, request, obj=None):
+        return request.user.is_staff
+    
+admin.site.register(ActivityPhoto, ActivityPhotoAdmin)

@@ -55,3 +55,11 @@ class PartnerOrganization(models.Model):
 
     def __str__(self):
         return self.org_name
+    
+class ActivityPhoto(models.Model):
+    image = models.ImageField(upload_to="uya/activities/")
+    caption = models.CharField(max_length=255)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.caption
