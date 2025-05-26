@@ -3,8 +3,9 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import SocialPlatform, PartnerOrganization, ActivityPhoto
 from .serializers import SocialPlatformSerializer, PartnerOrganizationSerializer, ActivityPhotoSerializer
-
-class PartnerOrganizationListAPIView(APIView):
+from django.shortcuts import render
+from datetime import datetime
+class SocialPlatformListAPIView(APIView):
     def get(self, request):
         partners = SocialPlatform.objects.all()
         serializer = SocialPlatformSerializer(partners, many=True)
@@ -34,3 +35,6 @@ class ActivityPhotoListAPIView(APIView):
             "message": "Activity photos retrieved successfully",
             "data": serializer.data
         }, status=status.HTTP_200_OK)
+
+def terms_view(request):
+    return render(request, "terms_of_service.html", {"now": datetime.now()})
