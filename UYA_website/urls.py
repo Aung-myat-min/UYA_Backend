@@ -26,7 +26,7 @@ schema_view = get_schema_view(
       title="UYA API",
       default_version='v1',
       description="API documentation for UYA Website project",
-      terms_of_service="https://uya-backend.onrender.com/terms/",
+      terms_of_service="https://uya-backend.onrender.com/api/terms/",
       contact=openapi.Contact(email="htetarakrlevi@gmail.com"),
       license=openapi.License(name="BSD License"),
    ),
