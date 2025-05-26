@@ -2,9 +2,10 @@ services:
   - type: web
     name: django-backend
     env: python
-    buildCommand: pip install -r requirements.txt
+    buildCommand: |
+      pip install -r requirements.txt
       python manage.py collectstatic --noinput
       python manage.py makemigrations
       python manage.py migrate
       python manage.py create_superuser_if_not_exists
-    startCommand: python manage.py makemigrations && python manage.py migrate && gunicorn UYA_website.wsgi:application --bind 0.0.0.0:$PORT
+    startCommand: gunicorn UYA_website.wsgi:application --bind 0.0.0.0:$PORT
