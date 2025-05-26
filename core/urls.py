@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import SocialPlatformListAPIView,PartnerOrganizationListAPIView, ActivityPhotoListAPIView,terms_view
+from .views import SocialPlatformListAPIView,PartnerOrganizationListAPIView, ActivityPhotoListAPIView, terms_view
 
 urlpatterns = [
     path("terms/", terms_view, name="terms_of_service"),
