@@ -20,6 +20,7 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from django.urls import path, re_path, include
+from django.shortcuts import redirect
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -36,6 +37,7 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', lambda request: redirect('/admin/')), 
     path('api/', include('contact.urls')),  
     path('api/', include('projects.urls')),  
     path('api/', include('core.urls')),  
