@@ -28,14 +28,27 @@ class ContactMessageView(APIView):
             )
 
             return Response({
-                "status": "success",
+                "meta": {
+                    "message": "Message received successfully",
+                    "status_code": status.HTTP_201_CREATED
+                },
                 "data": ContactMessageSerializer(contact).data,
-                "message": "Message received successfully"
+                "links": {
+                    "self": request.build_absolute_uri(),
+                    "home": request.build_absolute_uri("api/"),
+                }
             }, status=status.HTTP_201_CREATED)
 
         return Response({
-            "status": "error",
+            "meta": {
+                "message": "Message submission failed",
+                "status_code": status.HTTP_400_BAD_REQUEST
+            },
+            "data": None,
             "errors": serializer.errors,
-            "message": "Message submission failed"
+            "links": {
+                "self": request.build_absolute_uri(),
+                "home": request.build_absolute_uri("api/"),
+            }
         }, status=status.HTTP_400_BAD_REQUEST)
 
