@@ -1,5 +1,3 @@
-Backend for Website of United Youth Association of Burma
-
 # UYA Website Backend
 
 This is the backend API for the UYA Website, built with Django and Django REST Framework.  
@@ -20,7 +18,8 @@ It provides the core functionality and API endpoints for the website.
 - Financial statements with publication control
 - Deployed on [Render](https://uya-backend.onrender.com)
 - PostgreSQL database
-- Gunicorn as WSGI HTTP server
+- Gunicorn as WSGI HTTP serverQ
+- Environment-based configuration (e.g., `ALLOWED_HOSTS` via env vars)
 
 ---
 
@@ -29,7 +28,7 @@ It provides the core functionality and API endpoints for the website.
 ### Prerequisites
 
 - Python 3.11+  
-- PostgreSQL 
+- PostgreSQL  
 - Git
 
 ### Setup Instructions
@@ -39,85 +38,94 @@ It provides the core functionality and API endpoints for the website.
 git clone https://github.com/htetarkar2246/UYA_Backend.git
 cd UYA_Backend
 ```
+
 2. Create and activate a virtual environment:
-  ```bash
-  python -m venv venv
-  source venv/bin/activate  
-  ```
-  On Windows:
-  ```bash
-  venv\Scripts\activate
-  ```
-
-3.Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4.Create .env file based on .env.example and fill in environment variables:
-   ```bash
-   DEBUG=True
-   DATABASE_URL=your-database-url
-   SECRET_KEY=your-secret-key
-   DJANGO_SUPERUSER_USERNAME=<SUPERUSER_USERNAME>
-   DJANGO_SUPERUSER_EMAIL=<SUPERUSER_EMAIL>
-   DJANGO_SUPERUSER_PASSWORD=<SUPERUSER_PASSWORD>
-   CLOUDINARY_URL=cloudinary://<API_KEY>:<API_SECRET>@<CLOUD_NAME>
-   EMAIL_HOST_USER=<HOST_EMAIL>
-   EMAIL_HOST_PASSWORD=<HOST_PASSWORD>
-   DEFAULT_FROM_EMAIL=<DEFAULT_EMAIL>
-   ORG_EMAIL=<ORG_EMAIL>
-   ```
-
-5.Run migrations:
-   ```bash
-   python manage.py migrate
-   ```
-
-6.Start the development server:
-   ```bash
-   python manage.py runserver
-   ```
-
-### API Documentation
-## Interactive API docs are available via Swagger:
-
-Swagger UI:
- ```bash
-http://localhost:8000/swagger/ or https://uya-backend.onrender.com/swagger/
+```bash
+python -m venv venv
+source venv/bin/activate  
+```
+On Windows:
+```bash
+venv\Scripts\activate
 ```
 
-ReDoc UI:
- ```bash
-http://localhost:8000/redoc/ or https://uya-backend.onrender.com/redoc/
+3. Install dependencies:
+```bash
+pip install -r requirements.txt
 ```
-### API Features
 
-These endpoints are also deployed and accessible on the production Render URL.
+4. Create `.env` file based on `.env.example` and fill in environment variables:
+```env
+DEBUG=True
+DATABASE_URL=your-database-url
+SECRET_KEY=your-secret-key
+DJANGO_SUPERUSER_USERNAME=<SUPERUSER_USERNAME>
+DJANGO_SUPERUSER_EMAIL=<SUPERUSER_EMAIL>
+DJANGO_SUPERUSER_PASSWORD=<SUPERUSER_PASSWORD>
+CLOUDINARY_URL=cloudinary://<API_KEY>:<API_SECRET>@<CLOUD_NAME>
+EMAIL_HOST_USER=<HOST_EMAIL>
+EMAIL_HOST_PASSWORD=<HOST_PASSWORD>
+DEFAULT_FROM_EMAIL=<DEFAULT_EMAIL>
+ORG_EMAIL=<ORG_EMAIL>
+DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1
+```
+
+5. Run migrations:
+```bash
+python manage.py migrate
+```
+
+6. Start the development server:
+```bash
+python manage.py runserver
+```
+
+---
+
+## API Documentation
+
+Interactive API docs are available via Swagger:
+
+**Swagger UI:**  
+```
+http://localhost:8000/swagger/  
+https://uya-backend.onrender.com/swagger/
+```
+
+**ReDoc UI:**  
+```
+http://localhost:8000/redoc/  
+https://uya-backend.onrender.com/redoc/
+```
+
+---
+
+## API Features
 
 ### Contact Form Email
 Users can send messages using the Contact Us form from the frontend.
 
-## This endpoint:
-
-Sends the message to your organizational email
-
-Automatically sends an acknowledgment reply to the sender
- ```bash
+**Endpoint:**
+```
 POST /api/contact/
 ```
 
-Request Example: 
+**Sends:**
+- The message to your organizational email
+- An acknowledgment reply to the sender
 
- ```bash
+**Request Example:**
+```json
 {
   "name": "John Doe",
   "email": "john@example.com",
   "subject": "Volunteering Opportunities",
   "message": "I'd love to get involved!"
 }
+```
 
-Response:
+**Response:**
+```json
 {
   "status": "success",
   "message": "Message received successfully",
@@ -131,11 +139,14 @@ Response:
 }
 ```
 
-### Admin Dashboard 
- ```bash
-http://localhost:8000/admin or https://uya-backend.onrender.com/admin/
+---
+
+## Admin Dashboard
 ```
-Login using email and password 
+http://localhost:8000/admin  
+https://uya-backend.onrender.com/admin/
+```
+Login using email and password.
 
 ### Superuser-Only Features
 - Full audit log via Django LogEntry
@@ -143,42 +154,50 @@ Login using email and password
 - User Management (Create/Read/Delete)
 - User status controls (active/inactive, staff toggle)
 
-### Image & File Uploads
-## Cloudinary Integration
+---
+
+## Image & File Uploads
+
+### Cloudinary Integration
 Images uploaded via admin or API are stored on Cloudinary.
 
-Environment variable required:
-```bash
+**Environment variable required:**
+```
 CLOUDINARY_URL=cloudinary://<API_KEY>:<API_SECRET>@<CLOUD_NAME>
 ```
 
+---
+
 ## Project Management
--Projects have titles, descriptions, categories (upcoming, ongoing, past), dates, and images.
--Slugs are autogenerated.
--Each project can contain multiple images.
+- Projects have titles, descriptions, categories (upcoming, ongoing, past), dates, and images.
+- Slugs are autogenerated.
+- Each project can contain multiple images.
 
 ## Partner Organizations & Social Platforms
--Partner organizations include logo, name, description, and website.
--Social platforms support either an icon class (for Font Awesome etc.) or an uploaded image — but not both.
+- Partner organizations include logo, name, description, and website.
+- Social platforms support either an icon class (for Font Awesome etc.) or an uploaded image — but not both.
 
 ## Activity Photos
--Upload photos from activities with captions.
--Used for gallery-type frontend pages.
+- Upload photos from activities with captions.
+- Used for gallery-type frontend pages.
 
 ## Financial Statements
--Upload or link to financial reports.
--Includes release date and visibility toggle (is_published).
+- Upload or link to financial reports.
+- Includes release date and visibility toggle (`is_published`).
 
-### Deployment
-This project is deployed on Render.com using the following setup:
+---
+
+## Deployment
+
+This project is deployed on [Render](https://render.com) using the following setup:
 
 - Python environment
-- render.yaml configuration file for service setup
+- `render.yaml` configuration file for service setup
 - Gunicorn as the production WSGI server
-- Procfile specifying the startup command
+- `Procfile` specifying the startup command
 
 ## Environment Variables
-Make sure to set the following environment variables in .env or your deployment environment:
+Make sure to set the following environment variables in `.env` or your deployment environment:
 
 | Variable                    | Description                       |
 | --------------------------- | --------------------------------- |
@@ -191,13 +210,14 @@ Make sure to set the following environment variables in .env or your deployment 
 | `DJANGO_SUPERUSER_USERNAME` | Superuser username (auto create)  |
 | `DJANGO_SUPERUSER_EMAIL`    | Superuser email                   |
 | `DJANGO_SUPERUSER_PASSWORD` | Superuser password                |
+| `DJANGO_ALLOWED_HOSTS`      | Comma-separated allowed hosts     |
 
-The superuser will be auto-created at deployment if it doesn't exist.
- 
-### Contact
-For questions or feedback, contact: htetarkarlevi@gmail.com
+---
 
-### License
+## Contact
+For questions or feedback, contact: [htetarkarlevi@gmail.com](mailto:htetarkarlevi@gmail.com)
+
+---
+
+## License
 © United Youth Association of Burma — All rights reserved.
-
-
