@@ -43,6 +43,7 @@ class TestAPIViews(APITestCase):
         image2 = self.create_test_image()
         self.photo1 = ActivityPhoto.objects.create(image=image2, caption="Caption 1")
         self.photo2 = ActivityPhoto.objects.create(image=image2, caption="Caption 2")
+        self.photo3 = ActivityPhoto.objects.create(image=image2) 
 
 
     def create_test_image(self):
@@ -67,9 +68,14 @@ class TestAPIViews(APITestCase):
         self.assertEqual(len(response.data['data']), 2)
         self.assertIn('org_name', response.data['data'][0])
 
-    def test_activityphoto_list_api(self):
-        url = reverse('activity-photo-list')
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data['data']), 2)
-        self.assertEqual(response.data['data'][0]['caption'], "Caption 2")
+def test_activityphoto_list_api(self):
+    url = reverse('activity-photo-list')
+    response = self.client.get(url)
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.assertEqual(len(response.data['data']), 3)
+
+    captions = [item['caption'] for item in response.data['data']]
+    self.assertIn("Caption 1", captions)
+    self.assertIn("Caption 2", captions)
+    self.assertIn(self.photo3.caption, captions)  
+

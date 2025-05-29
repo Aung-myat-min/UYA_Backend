@@ -72,16 +72,16 @@ TEMPLATES = [
 ]
 
 #Database
-DATABASES = {
-    'default': dj_database_url.parse(DATABASE_URL)
-}
-
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': ':memory:',  
-#     }
+#     'default': dj_database_url.parse(DATABASE_URL)
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': ':memory:',  
+    }
+}
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 

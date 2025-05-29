@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.db import models
 from django.utils import timezone
-from django.core.exceptions import ValidationError
+import os
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -50,8 +50,13 @@ class PartnerOrganization(models.Model):
     
 class ActivityPhoto(models.Model):
     image = models.ImageField(upload_to="uya/activities/")
-    caption = models.CharField(max_length=255)
+    caption = models.CharField(max_length=255, blank=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
+    
+    def save(self, *args, **kwargs):
+        if not self.caption and self.image:
+            self.caption = os.path.basename(self.image.name)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.caption
