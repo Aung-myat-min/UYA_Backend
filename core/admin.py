@@ -199,12 +199,12 @@ admin.site.register(CustomUser, CustomUserAdmin)
 
 
 class SocialPlatformAdmin(admin.ModelAdmin):
-    list_display = ('platform_name', 'url', 'icon_class', 'icon_img')
+    list_display = ('platform_name', 'url',)
     search_fields = ('platform_name', 'icon_class', 'url')
     readonly_fields = ()
     fieldsets = (
         (None, {
-            'fields': ('platform_name', 'url', 'icon_class', 'icon_img')
+            'fields': ('platform_name', 'url',)
         }),
     )
 

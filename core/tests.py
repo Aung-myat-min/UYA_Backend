@@ -25,25 +25,25 @@ class TestUrls(SimpleTestCase):
         self.assertEqual(resolve(url).func, terms_view)
 class TestAPIViews(APITestCase):
     def setUp(self):
-        # Create SocialPlatform instances
+        # SocialPlatform setup
         self.social1 = SocialPlatform.objects.create(
-            platform_name="Facebook", url="https://facebook.com", icon_class="fa-facebook"
+            platform_name="Facebook", url="https://facebook.com"
         )
-        image = self.create_test_image()
         self.social2 = SocialPlatform.objects.create(
-            platform_name="Twitter", url="https://twitter.com", icon_img=image
+            platform_name="Twitter", url="https://twitter.com"
         )
 
-        # Create PartnerOrganization instances
+        # PartnerOrganization setup
         self.partner1 = PartnerOrganization.objects.create(
             org_name="Partner 1", website="https://partner1.com", description="Desc 1"
         )
         self.partner2 = PartnerOrganization.objects.create(org_name="Partner 2")
 
-        # Create ActivityPhoto instances
+        # ActivityPhoto setup
         image2 = self.create_test_image()
         self.photo1 = ActivityPhoto.objects.create(image=image2, caption="Caption 1")
         self.photo2 = ActivityPhoto.objects.create(image=image2, caption="Caption 2")
+
 
     def create_test_image(self):
         # Create a simple image for testing ImageField
