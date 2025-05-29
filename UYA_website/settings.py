@@ -72,16 +72,16 @@ TEMPLATES = [
 ]
 
 #Database
-# DATABASES = {
-#     'default': dj_database_url.parse(DATABASE_URL)
-# }
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': ':memory:',  
-    }
+    'default': dj_database_url.parse(DATABASE_URL)
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': ':memory:',  
+#     }
+# }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
@@ -100,7 +100,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Localization
 LANGUAGE_CODE = "en-us"
-TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Yangon"
 USE_I18N = True
 USE_TZ = True
 
