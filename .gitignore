@@ -43,7 +43,6 @@ Thumbs.db
 # */migrations/*.py  ← Uncomment to ignore migration files during early dev
 
 # Static & media (if generated)
-staticfiles/
 media/
 
 # Render build files
