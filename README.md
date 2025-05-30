@@ -56,7 +56,6 @@ pip install -r requirements.txt
 
 4. Create `.env` file based on `.env.example` and fill in environment variables:
 ```env
-DEBUG=True
 DATABASE_URL=your-database-url
 SECRET_KEY=your-secret-key
 DJANGO_SUPERUSER_USERNAME=<SUPERUSER_USERNAME>
@@ -184,7 +183,9 @@ CLOUDINARY_URL=cloudinary://<API_KEY>:<API_SECRET>@<CLOUD_NAME>
 ## Financial Statements
 - Upload or link to financial reports.
 - Includes release date and visibility toggle (`is_published`).
-
+  
+## Donation Certificate
+-upload pdf or img to display certificates
 ---
 
 ## Deployment
@@ -200,8 +201,7 @@ This project is deployed on [Render](https://render.com) using the following set
 Make sure to set the following environment variables in `.env` or your deployment environment:
 
 | Variable                    | Description                       |
-| --------------------------- | --------------------------------- |
-| `DEBUG`                     | Enable/disable debug mode         |
+| --------------------------- | --------------------------------- |           
 | `SECRET_KEY`                | Django secret key                 |
 | `DATABASE_URL`              | PostgreSQL connection string      |
 | `CLOUDINARY_URL`            | Cloudinary credentials            |
