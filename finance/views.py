@@ -1,16 +1,21 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from django.urls import reverse
 from .models import FinancialStatement
 from .serializers import FinancialStatementSerializer
 
 class FinancialStatementListAPIView(APIView):
     def get(self, request):
-        statements = FinancialStatement.objects.all().order_by('-release_date').filter(is_published=True)
+        statements = FinancialStatement.objects.filter(is_published=True).order_by('-release_date')
         serializer = FinancialStatementSerializer(statements, many=True)
         return Response({
-            "status": "success",
+            "meta": {
+                "message": "Financial statements retrieved successfully",
+                "status_code": status.HTTP_200_OK
+            },
             "data": serializer.data,
-            "message": "Financial statements retrieved successfully"
+            "links": {
+                "self": request.build_absolute_uri(),
+            }
         }, status=status.HTTP_200_OK)
-        

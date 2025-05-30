@@ -60,3 +60,16 @@ class ActivityPhoto(models.Model):
 
     def __str__(self):
         return self.caption
+    
+class DonationCertificate(models.Model):
+    certificate_file = models.FileField(upload_to='certificates/')
+    caption = models.CharField(max_length=255, blank=True)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        if not self.caption and self.certificate_file:
+            self.caption = os.path.basename(self.certificate_file.name)
+        super().save(*args, **kwargs)
+        
+    def __str__(self):
+        return f"{self.certificate_file.name}"

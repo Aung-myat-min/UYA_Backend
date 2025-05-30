@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from core.models import CustomUser, SocialPlatform, PartnerOrganization, ActivityPhoto
+from core.models import CustomUser, SocialPlatform, PartnerOrganization, ActivityPhoto, DonationCertificate
 from django.contrib.admin.models import LogEntry
 from django.contrib.admin.filters import DateFieldListFilter
 from django.urls import reverse, NoReverseMatch
@@ -273,3 +273,25 @@ class ActivityPhotoAdmin(admin.ModelAdmin):
         return request.user.is_staff
     
 admin.site.register(ActivityPhoto, ActivityPhotoAdmin)
+
+class DonationCertificateAdmin(admin.ModelAdmin):
+    list_display = ('caption','certificate_file', 'uploaded_at')
+    list_filter = ('uploaded_at',)
+    search_fields = ('caption','certificate_file',)
+
+    def has_module_permission(self, request):
+        return request.user.is_staff
+
+    def has_view_permission(self, request, obj=None):
+        return request.user.is_staff
+
+    def has_add_permission(self, request):
+        return request.user.is_staff
+
+    def has_change_permission(self, request, obj=None):
+        return request.user.is_staff
+
+    def has_delete_permission(self, request, obj=None):
+        return request.user.is_staff
+
+admin.site.register(DonationCertificate, DonationCertificateAdmin)

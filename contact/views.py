@@ -4,6 +4,7 @@ from rest_framework import status
 from django.core.mail import send_mail
 from django.conf import settings
 from .serializers import ContactMessageSerializer
+from django.urls import reverse
 
 class ContactMessageView(APIView):
     def post(self, request):
@@ -35,7 +36,6 @@ class ContactMessageView(APIView):
                 "data": ContactMessageSerializer(contact).data,
                 "links": {
                     "self": request.build_absolute_uri(),
-                    "home": request.build_absolute_uri("api/"),
                 }
             }, status=status.HTTP_201_CREATED)
 
@@ -48,7 +48,6 @@ class ContactMessageView(APIView):
             "errors": serializer.errors,
             "links": {
                 "self": request.build_absolute_uri(),
-                "home": request.build_absolute_uri("api/"),
             }
         }, status=status.HTTP_400_BAD_REQUEST)
 

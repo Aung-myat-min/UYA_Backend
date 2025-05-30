@@ -15,7 +15,7 @@ DATABASE_URL = os.getenv('DATABASE_URL')
 CLOUDINARY_URL = os.getenv('CLOUDINARY_URL')
 
 # Debug and hosts
-DEBUG = False
+DEBUG = True
 
 
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")

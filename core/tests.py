@@ -1,7 +1,7 @@
 from django.test import SimpleTestCase
 from django.urls import reverse, resolve 
-from core.views import SocialPlatformListAPIView, PartnerOrganizationListAPIView,  ActivityPhotoListAPIView, terms_view
-from core.models import SocialPlatform, PartnerOrganization, ActivityPhoto
+from core.views import SocialPlatformListAPIView, PartnerOrganizationListAPIView,  ActivityPhotoListAPIView, terms_view, DonationCertificateListAPIView
+from core.models import SocialPlatform, PartnerOrganization, ActivityPhoto, DonationCertificate
 from rest_framework.test import APITestCase
 from rest_framework import status
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -23,6 +23,10 @@ class TestUrls(SimpleTestCase):
     def test_terms_url_is_resolved(self):
         url = reverse('terms_of_service')
         self.assertEqual(resolve(url).func, terms_view)
+    
+    def test_certificate_list_url_is_resolved(self):
+        url = reverse('certificates-list')
+        self.assertEqual(resolve(url).func.view_class, DonationCertificateListAPIView)
 class TestAPIViews(APITestCase):
     def setUp(self):
         # SocialPlatform setup
@@ -44,6 +48,11 @@ class TestAPIViews(APITestCase):
         self.photo1 = ActivityPhoto.objects.create(image=image2, caption="Caption 1")
         self.photo2 = ActivityPhoto.objects.create(image=image2, caption="Caption 2")
         self.photo3 = ActivityPhoto.objects.create(image=image2) 
+        
+        self.cert_file = SimpleUploadedFile("cert.pdf", b"fake-pdf-content", content_type="application/pdf")
+        self.cert = DonationCertificate.objects.create(
+             certificate_file=self.cert_file
+        )
 
 
     def create_test_image(self):
@@ -68,14 +77,21 @@ class TestAPIViews(APITestCase):
         self.assertEqual(len(response.data['data']), 2)
         self.assertIn('org_name', response.data['data'][0])
 
-def test_activityphoto_list_api(self):
-    url = reverse('activity-photo-list')
-    response = self.client.get(url)
-    self.assertEqual(response.status_code, status.HTTP_200_OK)
-    self.assertEqual(len(response.data['data']), 3)
+    def test_activityphoto_list_api(self):
+        url = reverse('activity-photo-list')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data['data']), 3)
 
-    captions = [item['caption'] for item in response.data['data']]
-    self.assertIn("Caption 1", captions)
-    self.assertIn("Caption 2", captions)
-    self.assertIn(self.photo3.caption, captions)  
+        captions = [item['caption'] for item in response.data['data']]
+        self.assertIn("Caption 1", captions)
+        self.assertIn("Caption 2", captions)
+        self.assertIn(self.photo3.caption, captions)  
+
+
+    def test_certificate_list_api(self):
+        url = reverse('certificates-list')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data['data']), 1)
 
