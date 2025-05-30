@@ -215,7 +215,7 @@ Make sure to set the following environment variables in `.env` or your deploymen
 ---
 
 ## Contact
-For questions or feedback, contact: [htetarkarlevi@gmail.com](mailto:htetarkarlevi@gmail.com)
+For questions or feedback, contact: [htetarkarlevi@gmail.com](mailto:htetarkarlevi@gmail.com) [uyaburma.technical@gmail.com](mailto:uyaburma.technical@gmail.com)
 
 ---
 
