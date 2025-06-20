@@ -72,7 +72,7 @@ class CharityGuideByRegionAPIView(APIView):
             "data": serializer.data,
             "links": {
                 "self": request.build_absolute_uri(),
-                "list": request.build_absolute_uri(reverse("charityguide-list")),
+                "list": request.build_absolute_uri(reverse("charity-list")),
                 "detail": request.build_absolute_uri(reverse("charity-detail", args=[1])), 
             }
         }, status=status.HTTP_200_OK)

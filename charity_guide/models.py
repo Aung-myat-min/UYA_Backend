@@ -23,7 +23,8 @@ MYANMAR_DIVISIONS = [
 ]
 
 class CharityGuide(models.Model):
-    name   = models.CharField(max_length=255)
+    myanmar_name   = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True, blank=True)
     address  = models.TextField()
     region = models.CharField(max_length=255, choices=MYANMAR_DIVISIONS, default="Yangon")
@@ -32,7 +33,7 @@ class CharityGuide(models.Model):
     notes = models.TextField(blank=True)
     fb_page = models.URLField(blank=True)
     created_at   = models.DateTimeField(auto_now_add=True)
-    detail = models.JSONField()
+    detail = models.JSONField(null=True, blank=True)
 
     def __str__(self):
         return self.name

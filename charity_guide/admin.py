@@ -17,9 +17,9 @@ class CharityImageInline(admin.TabularInline):
 
 class CharityGuideAdmin(admin.ModelAdmin):
     # Removed custom form
-    list_display = ('name', 'region', 'is_published', 'created_at')
+    list_display = ('myanmar_name','name', 'region', 'is_published', 'created_at')
     list_filter = ('region', 'is_published')
-    search_fields = ('name', 'address', 'notes')
+    search_fields = ('myanmar_name','name', 'address', 'notes')
     prepopulated_fields = {'slug': ('name',)}
     inlines = [CharityImageInline]
     readonly_fields = ('created_at',)
