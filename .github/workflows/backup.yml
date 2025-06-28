@@ -37,4 +37,10 @@ jobs:
           git config --local user.email "action@github.com"
           git add db_backups/
           git commit -m "Weekly backup on $(date +%Y-%m-%d)" || echo "No changes to commit"
+
+      - name: Push backup to repository
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}
           git push
