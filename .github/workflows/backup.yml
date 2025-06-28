@@ -25,7 +25,7 @@ jobs:
         run: |
           pg_dump "$DATABASE_URL" -F c -f db_backups/uya_backup_$(date +%Y-%m-%d).dump
 
-      - name: Commit backup
+      - name: Commit and Push Backup
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
