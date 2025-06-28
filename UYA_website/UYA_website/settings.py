@@ -12,16 +12,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Load environment variables
 SECRET_KEY = os.getenv('SECRET_KEY')
 DATABASE_URL = os.getenv('DATABASE_URL')
-
-# Validation
-if not SECRET_KEY:
-    raise ValueError("SECRET_KEY is not set in the .env file.")
-if not DATABASE_URL:
-    raise ValueError("DATABASE_URL is not set in the .env file.")
+CLOUDINARY_URL = os.getenv('CLOUDINARY_URL')
 
 # Debug and hosts
-DEBUG = os.getenv('RENDER', '') != 'True'
-ALLOWED_HOSTS = ['*']
+DEBUG = True
+
+
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 
 # Installed apps
 INSTALLED_APPS = [
@@ -31,14 +28,25 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
+    "drf_yasg",
+    "cloudinary",
+    "cloudinary_storage",
+    'django_json_widget',
+    "core",
+    "contact",
+    "projects",
+    "finance",
+    "charity_guide",
 ]
 
 # Middleware
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
+    'django.middleware.csrf.CsrfViewMiddleware',
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
@@ -64,10 +72,24 @@ TEMPLATES = [
     },
 ]
 
-# Database
+#Database
 DATABASES = {
     'default': dj_database_url.parse(DATABASE_URL)
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': ':memory:',  
+#     }
+# }
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+CLOUDINARY_URL = os.getenv('CLOUDINARY_URL')
+
+
+AUTH_USER_MODEL = 'core.CustomUser'
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -79,12 +101,35 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Localization
 LANGUAGE_CODE = "en-us"
-TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Yangon"
 USE_I18N = True
 USE_TZ = True
 
 # Static files
-STATIC_URL = "static/"
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+if not DEBUG:
+    SWAGGER_SETTINGS = {
+        'USE_SESSION_AUTH': False,
+        'LOGIN_URL': '',
+        'LOGOUT_URL': '',
+    }
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com' 
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
+ORG_EMAIL = os.getenv('ORG_EMAIL')
+
+APPEND_SLASH = True
+
