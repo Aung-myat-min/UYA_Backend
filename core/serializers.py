@@ -9,7 +9,6 @@ class PartnerOrganizationSerializer(serializers.ModelSerializer):
     class Meta:
         model = PartnerOrganization
         fields = "__all__"
-        
 class ActivityPhotoSerializer(serializers.ModelSerializer):
     class Meta:
         model = ActivityPhoto
