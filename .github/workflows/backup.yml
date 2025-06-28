@@ -26,9 +26,12 @@ jobs:
           pg_dump "$DATABASE_URL" -F c -f db_backups/uya_backup_$(date +%Y-%m-%d).dump
 
       - name: Commit backup
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
           git config --local user.name "GitHub Action"
           git config --local user.email "action@github.com"
           git add db_backups/
           git commit -m "Weekly backup on $(date +%Y-%m-%d)" || echo "No changes to commit"
-          git push
+          git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/htetarkar2246/UYA_Backend.git
+          git push origin main
