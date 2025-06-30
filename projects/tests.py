@@ -1,44 +1,54 @@
 from django.test import SimpleTestCase
-from django.urls import reverse, resolve 
-from projects.views import PopularProjectsAPIView, ProjectListAPIView, UpcomingProjectsAPIView, OngoingProjectsAPIView, PastProjectsAPIView ,ProjectDetailAPIView
+from django.urls import reverse, resolve
 from rest_framework.test import APITestCase
 from rest_framework import status
 from datetime import date, timedelta
-from .models import Project, ProjectImage
 from django.core.files.uploadedfile import SimpleUploadedFile
 from PIL import Image
 import tempfile
+
+from projects.views import (
+    ProjectListAPIView, ProjectDetailAPIView, PopularProjectsAPIView,
+    RadioProjectsAPIView, StreetProjectsAPIView, MonthlyProjectsAPIView,
+    CrisisProjectsAPIView
+)
+from .models import Project, ProjectImage
+
+
 class TestUrls(SimpleTestCase):
     def test_pj_list_url_is_resolved(self):
         url = reverse('project-list')
         self.assertEqual(resolve(url).func.view_class, ProjectListAPIView)
 
-    def test_pj_detail_list_url_is_resolved(self):
+    def test_pj_detail_url_is_resolved(self):
         url = reverse('project-detail', args=[1])
         self.assertEqual(resolve(url).func.view_class, ProjectDetailAPIView)
-        
-    def test_popular_pj_list_url_is_resolved(self):
+
+    def test_popular_pj_url_is_resolved(self):
         url = reverse('popular-projects')
         self.assertEqual(resolve(url).func.view_class, PopularProjectsAPIView)
-        
-    def test_upcoming_pj_list_url_is_resolved(self):
-        url = reverse('upcoming-projects')
-        self.assertEqual(resolve(url).func.view_class, UpcomingProjectsAPIView)
-        
-    def test_ongoing_pj_list_url_is_resolved(self):
-        url = reverse('ongoing-projects')
-        self.assertEqual(resolve(url).func.view_class, OngoingProjectsAPIView)
-    
-    def test_past_pj_list_url_is_resolved(self):
-        url = reverse('past-projects')
-        self.assertEqual(resolve(url).func.view_class, PastProjectsAPIView)
+
+    def test_radio_pj_url_is_resolved(self):
+        url = reverse('radio-projects')
+        self.assertEqual(resolve(url).func.view_class, RadioProjectsAPIView)
+
+    def test_street_pj_url_is_resolved(self):
+        url = reverse('street-projects')
+        self.assertEqual(resolve(url).func.view_class, StreetProjectsAPIView)
+
+    def test_monthly_pj_url_is_resolved(self):
+        url = reverse('monthly-projects')
+        self.assertEqual(resolve(url).func.view_class, MonthlyProjectsAPIView)
+
+    def test_crisis_pj_url_is_resolved(self):
+        url = reverse('crisis-projects')
+        self.assertEqual(resolve(url).func.view_class, CrisisProjectsAPIView)
+
 
 class ProjectAPITestCase(APITestCase):
     def setUp(self):
-        # Helper image
         self.image = self.generate_test_image()
 
-        # Projects
         self.upcoming = Project.objects.create(
             title="Upcoming Project",
             description="Upcoming",
@@ -66,6 +76,42 @@ class ProjectAPITestCase(APITestCase):
             views=30,
         )
 
+        self.radio = Project.objects.create(
+            title="Radio Project",
+            description="Radio",
+            category="RADIO",
+            start_date=date.today() - timedelta(days=20),
+            is_published=True,
+            views=25,
+        )
+
+        self.street = Project.objects.create(
+            title="Street Project",
+            description="Street",
+            category="STREET",
+            start_date=date.today() - timedelta(days=10),
+            is_published=True,
+            views=40,
+        )
+
+        self.monthly = Project.objects.create(
+            title="Monthly Project",
+            description="Monthly",
+            category="MONTHLY",
+            start_date=date.today() - timedelta(days=15),
+            is_published=True,
+            views=35,
+        )
+
+        self.crisis = Project.objects.create(
+            title="Crisis Project",
+            description="Crisis",
+            category="CRISIS",
+            start_date=date.today() - timedelta(days=7),
+            is_published=True,
+            views=20,
+        )
+
         self.unpublished = Project.objects.create(
             title="Hidden Project",
             description="Unpublished",
@@ -75,8 +121,7 @@ class ProjectAPITestCase(APITestCase):
             views=100,
         )
 
-        # Add images to published projects
-        for project in [self.upcoming, self.ongoing, self.past]:
+        for project in Project.objects.filter(is_published=True):
             ProjectImage.objects.create(project=project, image=self.image)
 
     def generate_test_image(self):
@@ -90,43 +135,51 @@ class ProjectAPITestCase(APITestCase):
         url = reverse('project-list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data["status"], "success")
-        self.assertEqual(len(response.data["data"]), 3)  
+        self.assertEqual(response.data["meta"]["status_code"], 200)
+        self.assertEqual(len(response.data["data"]), 6)
 
     def test_popular_projects(self):
         url = reverse('popular-projects')
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data["data"][0]['title'], "Ongoing Project") 
+        self.assertEqual(response.data["data"][0]['title'], "Ongoing Project")  # views=50
 
-    def test_upcoming_projects(self):
-        url = reverse('upcoming-projects')
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertTrue(all(p['category'] == "UPCOMING" for p in response.data["data"]))
-
-    def test_ongoing_projects(self):
-        url = reverse('ongoing-projects')
+    def test_radio_projects(self):
+        url = reverse('radio-projects')
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data["data"]), 1)
-        self.assertEqual(response.data["data"][0]['title'], "Ongoing Project")
+        self.assertEqual(response.data["data"][0]['title'], "Radio Project")
 
-    def test_past_projects(self):
-        url = reverse('past-projects')
+    def test_street_projects(self):
+        url = reverse('street-projects')
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data["data"]), 1)
-        self.assertEqual(response.data["data"][0]['title'], "Past Project")
+        self.assertEqual(response.data["data"][0]['title'], "Street Project")
+
+    def test_monthly_projects(self):
+        url = reverse('monthly-projects')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data["data"]), 1)
+        self.assertEqual(response.data["data"][0]['title'], "Monthly Project")
+
+    def test_crisis_projects(self):
+        url = reverse('crisis-projects')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data["data"]), 1)
+        self.assertEqual(response.data["data"][0]['title'], "Crisis Project")
 
     def test_project_detail_success(self):
-        url = reverse('project-detail', kwargs={"pk": self.past.pk})
+        url = reverse('project-detail', kwargs={"pk": self.monthly.pk})
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data["data"]["title"], "Past Project")
+        self.assertEqual(response.data["data"]["title"], "Monthly Project")
 
     def test_project_detail_not_found(self):
         url = reverse('project-detail', kwargs={"pk": 999})
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-        self.assertEqual(response.data["message"], "Project not found")
+        self.assertEqual(response.data["meta"]["message"], "Project not found")
