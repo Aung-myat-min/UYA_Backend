@@ -37,16 +37,16 @@ class ProjectListAPIView(APIView):
         }, status=status.HTTP_200_OK)
 
 
-class UpcomingProjectsAPIView(APIView):
+class RadioProjectsAPIView(APIView):
     def get(self, request):
         projects = Project.objects.prefetch_related('images').filter(
             is_published=True,
-            category="UPCOMING"
+            category="RADIO"
         ).order_by('-start_date')
         serializer = ProjectSerializer(projects, many=True)
         return Response({
             "meta": {
-                "message": "Upcoming projects retrieved successfully",
+                "message": "Radion program projects retrieved successfully",
                 "status_code": status.HTTP_200_OK
             },
             "data": serializer.data,
@@ -56,16 +56,16 @@ class UpcomingProjectsAPIView(APIView):
         }, status=status.HTTP_200_OK)
 
 
-class OngoingProjectsAPIView(APIView):
+class StreetProjectsAPIView(APIView):
     def get(self, request):
         projects = Project.objects.prefetch_related('images').filter(
             is_published=True,
-            category="ONGOING"
+            category="STREET"
         ).order_by('-start_date')
         serializer = ProjectSerializer(projects, many=True)
         return Response({
             "meta": {
-                "message": "Ongoing projects retrieved successfully",
+                "message": "Street projects retrieved successfully",
                 "status_code": status.HTTP_200_OK
             },
             "data": serializer.data,
@@ -74,17 +74,16 @@ class OngoingProjectsAPIView(APIView):
             }
         }, status=status.HTTP_200_OK)
 
-
-class PastProjectsAPIView(APIView):
+class MonthlyProjectsAPIView(APIView):
     def get(self, request):
         projects = Project.objects.prefetch_related('images').filter(
             is_published=True,
-            category="PAST"
+            category="MONTHLY"
         ).order_by('-start_date')
         serializer = ProjectSerializer(projects, many=True)
         return Response({
             "meta": {
-                "message": "Past projects retrieved successfully",
+                "message": "Monthly projects retrieved successfully",
                 "status_code": status.HTTP_200_OK
             },
             "data": serializer.data,
@@ -93,6 +92,23 @@ class PastProjectsAPIView(APIView):
             }
         }, status=status.HTTP_200_OK)
 
+class CrisisProjectsAPIView(APIView):
+    def get(self, request):
+        projects = Project.objects.prefetch_related('images').filter(
+            is_published=True,
+            category="CRISIS"
+        ).order_by('-start_date')
+        serializer = ProjectSerializer(projects, many=True)
+        return Response({
+            "meta": {
+                "message": "Crisis projects retrieved successfully",
+                "status_code": status.HTTP_200_OK
+            },
+            "data": serializer.data,
+            "links": {
+                "self": request.build_absolute_uri(),
+            }
+        }, status=status.HTTP_200_OK)
 
 class ProjectDetailAPIView(APIView):
     def get(self, request, pk):

@@ -3,9 +3,10 @@ from django.utils.text import slugify
 
 class Project(models.Model):
     CATEGORY_CHOICES = [
-        ("UPCOMING", "Upcoming"),
-        ("ONGOING",  "Ongoing"),
-        ("PAST",     "Past"),
+        ("RADIO", "Radio Program"),
+        ("STREET",  "Street Donation"),
+        ("MONTHLY",     "Montly Donation"),
+        ("CRISIS", "Crisis Management Unit"),
     ]
 
     title        = models.CharField(max_length=255)
