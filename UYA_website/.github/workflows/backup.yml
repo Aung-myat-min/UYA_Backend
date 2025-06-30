@@ -1,0 +1,49 @@
+name: Weekly PostgreSQL Backup
+
+on:
+  schedule:
+    - cron: "0 0 * * *" # Every day at 00:00 UTC
+  workflow_dispatch: # Allows manual trigger
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install PostgreSQL client
+        run: sudo apt-get update && sudo apt-get install -y postgresql-client
+
+      - name: Create backup directory
+        run: mkdir -p db_backups
+
+      - name: Dump PostgreSQL database
+        env:
+          DATABASE_URL: ${{ secrets.RENDER_DATABASE_URL }}
+        run: |
+          export PGPASSWORD=$(echo $DATABASE_URL | sed -E 's/.*:([^@]+)@.*/\1/')
+          export PGUSER=$(echo $DATABASE_URL | sed -E 's|.*://([^:]+):.*|\1|')
+          export PGHOST=$(echo $DATABASE_URL | sed -E 's|.*@([^:/]+).*|\1|')
+          export PGPORT=$(echo $DATABASE_URL | sed -E 's|.*:([0-9]+)/.*|\1|')
+          export PGDATABASE=$(echo $DATABASE_URL | sed -E 's|.*/([^/?]+).*|\1|')
+
+          pg_dump -h $PGHOST -p $PGPORT -U $PGUSER -d $PGDATABASE -F c -f db_backups/uya_backup_$(date +%Y-%m-%d).dump
+
+      - name: Commit backup
+        run: |
+          git config --local user.name "GitHub Action"
+          git config --local user.email "action@github.com"
+          git add db_backups/
+          git commit -m "Weekly backup on $(date +%Y-%m-%d)" || echo "No changes to commit"
+
+      - name: Push backup to repository
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}
+          git push
