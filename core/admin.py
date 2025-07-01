@@ -275,9 +275,9 @@ class ActivityPhotoAdmin(admin.ModelAdmin):
 admin.site.register(ActivityPhoto, ActivityPhotoAdmin)
 
 class DonationCertificateAdmin(admin.ModelAdmin):
-    list_display = ('caption','certificate', 'uploaded_at')
+    list_display = ('caption', 'uploaded_at')
     list_filter = ('uploaded_at',)
-    search_fields = ('caption','certificate',)
+    search_fields = ('caption',)
 
     def has_module_permission(self, request):
         return request.user.is_staff
