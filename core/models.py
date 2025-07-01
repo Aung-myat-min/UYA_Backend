@@ -68,9 +68,9 @@ class DonationCertificate(models.Model):
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
-        if not self.caption and self.certificate_file:
-            self.caption = os.path.basename(self.certificate_file.name)
+        if not self.caption and self.certificate:
+            self.caption = os.path.basename(self.certificate.name)
         super().save(*args, **kwargs)
         
     def __str__(self):
-        return f"{self.certificate_file.name}"
+        return f"{self.caption}"
