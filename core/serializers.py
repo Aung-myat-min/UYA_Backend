@@ -30,3 +30,7 @@ class DonationCertificateSerializer(serializers.ModelSerializer):
         model = DonationCertificate
         fields = '__all__'
 
+    def get_certificate(self, obj):
+        if obj.certificate:
+            return f"https://res.cloudinary.com/{settings.CLOUDINARY_CLOUD_NAME}/{obj.certificate}"
+        return None

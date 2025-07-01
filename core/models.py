@@ -63,7 +63,7 @@ class ActivityPhoto(models.Model):
         return self.caption
     
 class DonationCertificate(models.Model):
-    certificate_file = models.FileField(upload_to='certificates/')
+    certificate = CloudinaryField('image', folder='uya/certificates/')
     caption = models.CharField(max_length=255, blank=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
