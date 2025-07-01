@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from cloudinary.models import CloudinaryField
 
 MYANMAR_DIVISIONS = [
     # States
@@ -47,7 +48,7 @@ class CharityImage(models.Model):
     charity      = models.ForeignKey(
         CharityGuide, related_name="images", on_delete=models.CASCADE
     )
-    image        = models.ImageField(upload_to="uya/charity_guides/")  
+    image = CloudinaryField('image', folder='uya/charity_guides/')
     caption      = models.CharField(max_length=255, blank=True)
     uploaded_at  = models.DateTimeField(auto_now_add=True)
 

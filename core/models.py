@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 from django.db import models
 from django.utils import timezone
 import os
+from cloudinary.models import CloudinaryField
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -41,7 +42,7 @@ class SocialPlatform(models.Model):
         return self.platform_name  
 class PartnerOrganization(models.Model):
     org_name = models.CharField(max_length=255)
-    logo = models.ImageField(upload_to="uya/partners/logos/", blank=True, null=True)  
+    logo = CloudinaryField('image', folder='uya/partners/logos', blank=True, null=True)
     website = models.URLField(blank=True)
     description = models.TextField(blank=True)  
 
@@ -49,7 +50,7 @@ class PartnerOrganization(models.Model):
         return self.org_name
     
 class ActivityPhoto(models.Model):
-    image = models.ImageField(upload_to="uya/activities/")
+    image = CloudinaryField('image', folder='uya/activities/')
     caption = models.CharField(max_length=255, blank=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
     

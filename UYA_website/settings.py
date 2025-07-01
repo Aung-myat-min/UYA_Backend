@@ -2,6 +2,7 @@ from pathlib import Path
 import os
 import dj_database_url
 from dotenv import load_dotenv
+import cloudinary
 
 # Load environment variables
 load_dotenv()
@@ -86,8 +87,14 @@ DATABASES = {
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-CLOUDINARY_URL = os.getenv('CLOUDINARY_URL')
-
+cloudinary.config( 
+  cloud_name = os.getenv('CLOUDINARY_CLOUD_NAME'),
+  api_key = os.getenv('CLOUDINARY_API_KEY'),
+  api_secret = os.getenv('CLOUDINARY_API_SECRET')
+)
+CLOUDINARY_API_KEY=os.getenv('CLOUDINARY_API_KEY')
+CLOUDINARY_API_SECRET=os.getenv('CLOUDINARY_API_SECRET')
+CLOUDINARY_CLOUD_NAME = os.getenv('CLOUDINARY_CLOUD_NAME')
 
 AUTH_USER_MODEL = 'core.CustomUser'
 
