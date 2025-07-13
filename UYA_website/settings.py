@@ -18,8 +18,8 @@ CLOUDINARY_URL = os.getenv('CLOUDINARY_URL')
 # Debug and hosts
 DEBUG = True
 
-
-ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
+ALLOWED_HOSTS = "*"
+# ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 
 # Installed apps
 INSTALLED_APPS = [
