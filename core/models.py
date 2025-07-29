@@ -61,16 +61,26 @@ class ActivityPhoto(models.Model):
 
     def __str__(self):
         return self.caption
-    
+class DonationCertificateCategory(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
 class DonationCertificate(models.Model):
     certificate = CloudinaryField('image', folder='uya/certificates/')
     caption = models.CharField(max_length=255, blank=True)
+    category = models.ForeignKey(DonationCertificateCategory, on_delete=models.CASCADE)
+    location = models.CharField(max_length=255, blank=True, null=True)
+    date = models.DateField(blank=True, null=True)
+    amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
         if not self.caption and self.certificate:
             self.caption = os.path.basename(self.certificate.name)
         super().save(*args, **kwargs)
-        
+
     def __str__(self):
-        return f"{self.caption}"
+        return self.caption

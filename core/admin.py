@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from core.models import CustomUser, SocialPlatform, PartnerOrganization, ActivityPhoto, DonationCertificate
+from core.models import CustomUser, SocialPlatform, PartnerOrganization, ActivityPhoto, DonationCertificateCategory, DonationCertificate
 from django.contrib.admin.models import LogEntry
 from django.contrib.admin.filters import DateFieldListFilter
 from django.urls import reverse, NoReverseMatch
@@ -251,7 +251,6 @@ class PartnerOrganizationAdmin(admin.ModelAdmin):
     
 admin.site.register(PartnerOrganization, PartnerOrganizationAdmin)
 
-
 class ActivityPhotoAdmin(admin.ModelAdmin):
     list_display = ('caption', 'uploaded_at')
     list_filter = ('uploaded_at',)
@@ -275,9 +274,10 @@ class ActivityPhotoAdmin(admin.ModelAdmin):
 admin.site.register(ActivityPhoto, ActivityPhotoAdmin)
 
 class DonationCertificateAdmin(admin.ModelAdmin):
-    list_display = ('caption','certificate', 'uploaded_at')
-    list_filter = ('uploaded_at',)
-    search_fields = ('caption','certificate',)
+    list_display = ('caption', 'category', 'location', 'date', 'amount', 'certificate', 'uploaded_at')
+    list_filter = ('category', 'location', 'date', 'uploaded_at')
+    search_fields = ('caption', 'location', 'certificate')
+    autocomplete_fields = ['category'] 
 
     def has_module_permission(self, request):
         return request.user.is_staff
@@ -295,3 +295,23 @@ class DonationCertificateAdmin(admin.ModelAdmin):
         return request.user.is_staff
 
 admin.site.register(DonationCertificate, DonationCertificateAdmin)
+
+class DonationCertificateCategoryAdmin(admin.ModelAdmin):
+    search_fields = ['name']
+    
+    def has_module_permission(self, request):
+        return False
+
+    def has_view_permission(self, request, obj=None):
+        return False
+
+    def has_add_permission(self, request):
+        return True  
+
+    def has_change_permission(self, request, obj=None):
+        return True  
+
+    def has_delete_permission(self, request, obj=None):
+        return True  
+    
+admin.site.register(DonationCertificateCategory, DonationCertificateCategoryAdmin)

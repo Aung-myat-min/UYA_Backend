@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import SocialPlatform, PartnerOrganization, ActivityPhoto, DonationCertificate
+from .models import SocialPlatform, PartnerOrganization, ActivityPhoto, DonationCertificateCategory, DonationCertificate
 from django.conf import settings
 class SocialPlatformSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,6 +25,11 @@ class ActivityPhotoSerializer(serializers.ModelSerializer):
         if obj.image:
             return f"https://res.cloudinary.com/{settings.CLOUDINARY_CLOUD_NAME}/{obj.image}"
         return None
+
+class DonationCertificateCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DonationCertificateCategory
+        fields = '__all__'
 class DonationCertificateSerializer(serializers.ModelSerializer):
     class Meta:
         model = DonationCertificate
