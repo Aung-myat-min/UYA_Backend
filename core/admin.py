@@ -274,7 +274,7 @@ class ActivityPhotoAdmin(admin.ModelAdmin):
 admin.site.register(ActivityPhoto, ActivityPhotoAdmin)
 
 class DonationCertificateAdmin(admin.ModelAdmin):
-    list_display = ('caption', 'category', 'location', 'date', 'amount', 'certificate', 'uploaded_at')
+    list_display = ('caption', 'category', 'location', 'date', 'amount', 'uploaded_at')
     list_filter = ('category', 'location', 'date', 'uploaded_at')
     search_fields = ('caption', 'location', 'certificate')
     autocomplete_fields = ['category'] 
