@@ -1,7 +1,7 @@
 from django.test import SimpleTestCase
 from django.urls import reverse, resolve 
 from core.views import SocialPlatformListAPIView, PartnerOrganizationListAPIView,  ActivityPhotoListAPIView, terms_view, DonationCertificateListAPIView
-from core.models import SocialPlatform, PartnerOrganization, ActivityPhoto, DonationCertificate
+from core.models import SocialPlatform, PartnerOrganization, ActivityPhoto
 from rest_framework.test import APITestCase
 from rest_framework import status
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -49,11 +49,6 @@ class TestAPIViews(APITestCase):
         self.photo2 = ActivityPhoto.objects.create(image=image2, caption="Caption 2")
         self.photo3 = ActivityPhoto.objects.create(image=image2) 
         
-        self.cert_file = SimpleUploadedFile("cert.pdf", b"fake-pdf-content", content_type="application/pdf")
-        self.cert = DonationCertificate.objects.create(
-             certificate_file=self.cert_file
-        )
-
 
     def create_test_image(self):
         # Create a simple image for testing ImageField
