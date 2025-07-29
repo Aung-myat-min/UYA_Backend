@@ -143,6 +143,4 @@ ORG_EMAIL = os.getenv('ORG_EMAIL')
 APPEND_SLASH = True
 
 CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOWED_ORIGINS = [
-    "*"
-]
+
