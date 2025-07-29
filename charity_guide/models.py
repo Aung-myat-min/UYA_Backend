@@ -24,8 +24,8 @@ MYANMAR_DIVISIONS = [
 ]
 
 class CharityGuide(models.Model):
-    myanmar_name   = models.CharField(max_length=255)
-    name = models.CharField(max_length=255)
+    name   = models.CharField(max_length=255)
+    slug_name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True, blank=True)
     address  = models.TextField()
     region = models.CharField(max_length=255, choices=MYANMAR_DIVISIONS, default="Yangon")

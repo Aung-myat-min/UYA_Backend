@@ -16,11 +16,10 @@ class CharityImageInline(admin.TabularInline):
     fields = ('image', 'caption', 'uploaded_at')
 
 class CharityGuideAdmin(admin.ModelAdmin):
-    # Removed custom form
-    list_display = ('myanmar_name','name', 'region', 'is_published', 'created_at')
+    list_display = ('name','slug_name', 'region', 'is_published', 'created_at')
     list_filter = ('region', 'is_published')
-    search_fields = ('myanmar_name','name', 'address', 'notes')
-    prepopulated_fields = {'slug': ('name',)}
+    search_fields = ('name','slug_name', 'address', 'notes')
+    prepopulated_fields = {'slug': ('slug_name',)}
     inlines = [CharityImageInline]
     readonly_fields = ('created_at',)
     ordering = ('-created_at',)

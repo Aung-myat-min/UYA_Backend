@@ -21,8 +21,8 @@ class TestUrls(SimpleTestCase):
 class CharityGuideAPITest(APITestCase):
     def setUp(self):
         self.charity1 = CharityGuide.objects.create(
-            myanmar_name="တွဲလက်တစ်စုံ",
-            name="Helping Hands",
+            name="တွဲလက်တစ်စုံ",
+            slug_name="Helping Hands",
             address="123 Yangon Road",
             region="Yangon",
             is_published=True,
@@ -33,8 +33,8 @@ class CharityGuideAPITest(APITestCase):
         )
 
         self.charity2 = CharityGuide.objects.create(
-            myanmar_name="မျှော်လင့်ခြင်းလင်းရောက်ခြည်",
-            name="Hidden Hope",
+            name="မျှော်လင့်ခြင်းလင်းရောက်ခြည်",
+            slug_name="Hidden Hope",
             address="456 Mandalay Road",
             region="Mandalay",
             is_published=False,
@@ -53,13 +53,13 @@ class CharityGuideAPITest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data['data']), 1)
         self.assertEqual(response.data['data'][0]['name'], "Helping Hands")
-        self.assertEqual(response.data['data'][0]['myanmar_name'], "တွဲလက်တစ်စုံ")
+        self.assertEqual(response.data['data'][0]['slug_name'], "တွဲလက်တစ်စုံ")
 
     def test_detail_view_published_charity(self):
         response = self.client.get(self.detail_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['data']['name'], "Helping Hands")
-        self.assertEqual(response.data['data']['myanmar_name'], "တွဲလက်တစ်စုံ")
+        self.assertEqual(response.data['data']['slug_name'], "တွဲလက်တစ်စုံ")
 
     def test_detail_view_unpublished_charity_not_found(self):
         url = reverse('charity-detail', args=[self.charity2.pk])
@@ -71,7 +71,7 @@ class CharityGuideAPITest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data['data']), 1)
         self.assertEqual(response.data['data'][0]['region'], "Yangon")
-        self.assertEqual(response.data['data'][0]['myanmar_name'], "တွဲလက်တစ်စုံ")
+        self.assertEqual(response.data['data'][0]['slug_name'], "တွဲလက်တစ်စုံ")
 
     def test_get_charity_by_region_empty(self):
         url = reverse('charity-by-region', args=["Mandalay"])
