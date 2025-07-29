@@ -70,11 +70,11 @@ class DonationCertificateCategory(models.Model):
 
 class DonationCertificate(models.Model):
     certificate = CloudinaryField('image', folder='uya/certificates/')
-    caption = models.CharField(max_length=255, blank=True)
+    caption = models.CharField(max_length=255)
     category = models.ForeignKey(DonationCertificateCategory, on_delete=models.CASCADE)
-    location = models.CharField(max_length=255, blank=True, null=True)
-    date = models.DateField(blank=True, null=True)
-    amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    location = models.CharField(max_length=255)
+    date = models.DateField()
+    amount = models.TextField()
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
