@@ -26,13 +26,7 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.RENDER_DATABASE_URL }}
         run: |
-          export PGPASSWORD=$(echo $DATABASE_URL | sed -E 's/.*:([^@]+)@.*/\1/')
-          export PGUSER=$(echo $DATABASE_URL | sed -E 's|.*://([^:]+):.*|\1|')
-          export PGHOST=$(echo $DATABASE_URL | sed -E 's|.*@([^:/]+).*|\1|')
-          export PGPORT=$(echo $DATABASE_URL | sed -E 's|.*:([0-9]+)/.*|\1|')
-          export PGDATABASE=$(echo $DATABASE_URL | sed -E 's|.*/([^/?]+).*|\1|')
-
-          pg_dump -h $PGHOST -p $PGPORT -U $PGUSER -d $PGDATABASE -F c -f db_backups/uya_backup_$(date +%Y-%m-%d).dump
+          pg_dump "$DATABASE_URL" -F c -f db_backups/uya_backup_$(date +%Y-%m-%d).dump
 
       - name: Commit backup
         run: |
