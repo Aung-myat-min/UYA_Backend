@@ -21,7 +21,6 @@ class SocialPlatformListAPIView(APIView):
                 "partners":request.build_absolute_uri(reverse('partner-orgs-list')),
                 "activities":request.build_absolute_uri(reverse('activity-photo-list')),
                 "platforms":request.build_absolute_uri(reverse('social-platforms-list')),
-                "certificates":request.build_absolute_uri(reverse('certificates-list')),
             }
         }, status=status.HTTP_200_OK)
 
@@ -40,7 +39,6 @@ class PartnerOrganizationListAPIView(APIView):
                 "partners":request.build_absolute_uri(reverse('partner-orgs-list')),
                 "activities":request.build_absolute_uri(reverse('activity-photo-list')),
                 "platforms":request.build_absolute_uri(reverse('social-platforms-list')),
-                "certificates":request.build_absolute_uri(reverse('certificates-list')),
             }
         }, status=status.HTTP_200_OK)
 
@@ -59,7 +57,6 @@ class ActivityPhotoListAPIView(APIView):
                 "partners":request.build_absolute_uri(reverse('partner-orgs-list')),
                 "activities":request.build_absolute_uri(reverse('activity-photo-list')),
                 "platforms":request.build_absolute_uri(reverse('social-platforms-list')),
-                "certificates":request.build_absolute_uri(reverse('certificates-list')),
             }
         }, status=status.HTTP_200_OK)
 

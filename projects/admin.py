@@ -12,20 +12,27 @@ def mark_as_unpublished(modeladmin, request, queryset):
     queryset.update(is_published=False)
 
 
-@admin.action(description="Mark selected projects as Upcoming")
-def mark_as_upcoming(modeladmin, request, queryset):
-    queryset.update(category="UPCOMING")
+@admin.action(description="Mark selected projects as Radio Program")
+def mark_as_radio(modeladmin, request, queryset):
+    queryset.update(category="RADIO")
 
 
-@admin.action(description="Mark selected projects as Ongoing")
-def mark_as_ongoing(modeladmin, request, queryset):
-    queryset.update(category="ONGOING")
+@admin.action(description="Mark selected projects as Monthly Donation")
+def mark_as_monthly(modeladmin, request, queryset):
+    queryset.update(category="MONTHLY")
 
 
-@admin.action(description="Mark selected projects as Past")
-def mark_as_past(modeladmin, request, queryset):
-    queryset.update(category="PAST")
+@admin.action(description="Mark selected projects as Emergency Response")
+def mark_as_emergency(modeladmin, request, queryset):
+    queryset.update(category="EMERGENCY")
 
+@admin.action(description="Mark selected projects as Kann Lat")
+def mark_as_kann(modeladmin, request, queryset):
+    queryset.update(category="KANN")
+    
+@admin.action(description="Mark selected projects as Youth Empowerment")
+def mark_as_youth(modeladmin, request, queryset):
+    queryset.update(category="YOUTH")
 
 class ProjectImageInline(admin.TabularInline):
     model = ProjectImage
@@ -47,9 +54,11 @@ class ProjectAdmin(admin.ModelAdmin):
     actions = [
         mark_as_published,
         mark_as_unpublished,
-        mark_as_upcoming,
-        mark_as_ongoing,
-        mark_as_past,
+        mark_as_radio,
+        mark_as_monthly,
+        mark_as_emergency,
+        mark_as_kann,
+        mark_as_youth
     ]
 
     fieldsets = (
