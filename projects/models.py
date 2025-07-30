@@ -4,8 +4,8 @@ from cloudinary.models import CloudinaryField
 
 class Project(models.Model):
     CATEGORY_CHOICES = [
+        ("Montly Donation","Montly Donation"),
         ("Radio Program", "Radio Program"),
-        ("Montly Donation",     "Montly Donation"),
         ("Emergency Response", "Emergency Response"),
         ("Kann Lat", "Kann Lat"),
         ("Youth Empowerment","Youth Empowerment")
