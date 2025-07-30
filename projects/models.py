@@ -15,7 +15,7 @@ class Project(models.Model):
     slug         = models.SlugField(max_length=255, unique=True, blank=True)
     description  = models.TextField()
     category     = models.CharField(max_length=10, choices=CATEGORY_CHOICES, default="MONTHLY")
-    start_date   = models.DateField()
+    start_date   = models.DateField(null=True, blank=True)
     end_date     = models.DateField(null=True, blank=True)
     is_published = models.BooleanField(default=False)
     location_name = models.CharField(max_length=255, blank=True)
