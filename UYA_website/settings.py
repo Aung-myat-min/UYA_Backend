@@ -138,7 +138,7 @@ DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
 ORG_EMAIL = os.getenv('ORG_EMAIL')
 
 APPEND_SLASH = True
-ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",") 
+ALLOWED_HOSTS = ["uya-backend.onrender.com", "localhost"]
 CORS_ALLOWED_ORIGINS = [
     "https://united-youth-association-burma.vercel.app",
 ]
