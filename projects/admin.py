@@ -14,25 +14,25 @@ def mark_as_unpublished(modeladmin, request, queryset):
 
 @admin.action(description="Mark selected projects as Radio Program")
 def mark_as_radio(modeladmin, request, queryset):
-    queryset.update(category="RADIO")
+    queryset.update(category="Radio Program")
 
 
 @admin.action(description="Mark selected projects as Monthly Donation")
 def mark_as_monthly(modeladmin, request, queryset):
-    queryset.update(category="MONTHLY")
+    queryset.update(category="Montly Donation")
 
 
 @admin.action(description="Mark selected projects as Emergency Response")
 def mark_as_emergency(modeladmin, request, queryset):
-    queryset.update(category="EMERGENCY")
+    queryset.update(category="Emergency Response")
 
 @admin.action(description="Mark selected projects as Kann Lat")
 def mark_as_kann(modeladmin, request, queryset):
-    queryset.update(category="KANN")
+    queryset.update(category="Kann Lat")
     
 @admin.action(description="Mark selected projects as Youth Empowerment")
 def mark_as_youth(modeladmin, request, queryset):
-    queryset.update(category="YOUTH")
+    queryset.update(category="Youth Empowerment")
 
 class ProjectImageInline(admin.TabularInline):
     model = ProjectImage
