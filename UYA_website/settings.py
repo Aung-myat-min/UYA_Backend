@@ -140,4 +140,4 @@ ORG_EMAIL = os.getenv('ORG_EMAIL')
 APPEND_SLASH = True
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",") 
 CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS").split(",")
-
+CORS_ALLOW_CREDENTIALS = True
