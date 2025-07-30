@@ -139,6 +139,6 @@ ORG_EMAIL = os.getenv('ORG_EMAIL')
 
 APPEND_SLASH = True
 
-CORS_ALLOWED_ORIGINS = os.getenv("DJANGO_ALLOWED_HOSTS").split(",")
+CORS_ALLOWED_ORIGINS = os.getenv("ALLOWED_HOSTS").split(",")
 
 
