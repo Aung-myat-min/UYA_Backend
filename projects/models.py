@@ -4,11 +4,11 @@ from cloudinary.models import CloudinaryField
 
 class Project(models.Model):
     CATEGORY_CHOICES = [
-        ("RADIO", "Radio Program"),
-        ("MONTHLY",     "Montly Donation"),
-        ("EMERGENCY", "Emergency Response"),
-        ("KANN", "Kann Lat"),
-        ("YOUTH","Youth Empowerment")
+        ("Radio Program", "Radio Program"),
+        ("Montly Donation",     "Montly Donation"),
+        ("Emergency Response", "Emergency Response"),
+        ("Kann Lat", "Kann Lat"),
+        ("Youth Empowerment","Youth Empowerment")
     ]
 
     title        = models.CharField(max_length=255)
