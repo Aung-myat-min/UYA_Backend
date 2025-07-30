@@ -36,7 +36,7 @@ class ProjectImageInline(admin.TabularInline):
 
 
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('title', 'category', 'start_date', 'end_date', 'is_published', 'created_at')
+    list_display = ('title', 'category', 'start_date', 'end_date', 'is_published')
     list_filter = ('category', 'is_published', 'start_date')
     search_fields = ('title', 'description')
     prepopulated_fields = {'slug': ('title',)}
