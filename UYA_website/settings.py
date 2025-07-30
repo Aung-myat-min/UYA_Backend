@@ -141,5 +141,6 @@ APPEND_SLASH = True
 ALLOWED_HOSTS = ["uya-backend.onrender.com", "localhost"]
 CORS_ALLOWED_ORIGINS = [
     "https://united-youth-association-burma.vercel.app",
+    "https://uya-burma.org"
 ]
 CORS_ALLOW_CREDENTIALS = True
