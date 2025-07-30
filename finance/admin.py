@@ -10,7 +10,7 @@ def mark_as_not_published(modeladmin, request, queryset):
     queryset.update(is_published=False)
 
 class FinancialStatementAdmin(admin.ModelAdmin):
-    list_display = ('statement_name', 'release_date','is_published','created_at')  
+    list_display = ('statement_name', 'release_date','is_published')  
     list_filter = ('release_date',)                        
     search_fields = ('statement_name',)                              
     ordering = ('-release_date',)
