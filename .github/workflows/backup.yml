@@ -27,7 +27,6 @@ jobs:
         run: mkdir -p db_backups
 
       - name: Dump PostgreSQL database
-
         run: pg_dump "$DATABASE_URL" -F c -f db_backups/uya_backup_$(date +%Y-%m-%d).dump
         env:
           DATABASE_URL: ${{ secrets.RENDER_DATABASE_URL }}
@@ -38,7 +37,6 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Commit and push changes
-
         run: |
           git add db_backups/
           git commit -m "Daily backup on $(date +%Y-%m-%d)" || echo "No changes to commit"
