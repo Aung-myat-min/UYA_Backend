@@ -1,4 +1,4 @@
-name: Weekly PostgreSQL Backup
+name: Daily PostgreSQL Backup
 
 on:
   schedule:
