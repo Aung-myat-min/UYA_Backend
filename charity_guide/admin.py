@@ -14,6 +14,15 @@ class CharityImageInline(admin.TabularInline):
     extra = 1  
     readonly_fields = ('uploaded_at',)
     fields = ('image', 'caption', 'uploaded_at')
+    
+    def has_add_permission(self, request, obj=None):
+        return request.user.is_staff
+
+    def has_change_permission(self, request, obj=None):
+        return request.user.is_staff
+
+    def has_delete_permission(self, request, obj=None):
+        return request.user.is_staff
 
 class CharityGuideAdmin(admin.ModelAdmin):
     list_display = ('name','slug_name', 'region', 'is_published', 'created_at')

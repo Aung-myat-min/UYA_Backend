@@ -41,6 +41,14 @@ class ProjectImageInline(admin.TabularInline):
     fields = ('image', 'caption', 'uploaded_at')
     show_change_link = False
 
+    def has_add_permission(self, request, obj=None):
+        return request.user.is_staff
+
+    def has_change_permission(self, request, obj=None):
+        return request.user.is_staff
+
+    def has_delete_permission(self, request, obj=None):
+        return request.user.is_staff
 
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ('title', 'category', 'start_date', 'end_date', 'is_published')

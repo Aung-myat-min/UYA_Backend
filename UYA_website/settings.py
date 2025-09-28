@@ -16,7 +16,7 @@ DATABASE_URL = os.getenv('DATABASE_URL')
 CLOUDINARY_URL = os.getenv('CLOUDINARY_URL')
 
 # Debug and hosts
-DEBUG = False
+DEBUG = True
 
 # Installed apps
 INSTALLED_APPS = [
