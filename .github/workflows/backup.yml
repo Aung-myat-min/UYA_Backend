@@ -18,19 +18,19 @@ jobs:
         uses: actions/checkout@v3
 
       # Add PostgreSQL PPA and install the correct client version
-      - name: Install PostgreSQL client version 17
+      - name: Install PostgreSQL client version 18
         run: |
           sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
           wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
           sudo apt-get update
-          sudo apt-get install -y postgresql-client-17
+          sudo apt-get install -y postgresql-client-18
 
       - name: Create backup directory
         run: mkdir -p db_backups
 
       - name: Dump PostgreSQL database
         # Explicitly call pg_dump from the version 17 binary path
-        run: /usr/lib/postgresql/17/bin/pg_dump "$DATABASE_URL" -F c -f db_backups/uya_backup_$(date +%Y-%m-%d).dump
+        run: /usr/lib/postgresql/18/bin/pg_dump "$DATABASE_URL" -F c -f db_backups/uya_backup_$(date +%Y-%m-%d).dump
         env:
           DATABASE_URL: ${{ secrets.UYA_DATABASE_URL }}
 
