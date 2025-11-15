@@ -32,7 +32,7 @@ jobs:
         # Explicitly call pg_dump from the version 17 binary path
         run: /usr/lib/postgresql/17/bin/pg_dump "$DATABASE_URL" -F c -f db_backups/uya_backup_$(date +%Y-%m-%d).dump
         env:
-          DATABASE_URL: ${{ secrets.RENDER_DATABASE_URL }}
+          DATABASE_URL: ${{ secrets.UYA_DATABASE_URL }}
 
       - name: Set up Git config
         run: |
