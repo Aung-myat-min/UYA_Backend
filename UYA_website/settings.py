@@ -1,8 +1,9 @@
-from pathlib import Path
 import os
+from pathlib import Path
+
+import cloudinary
 import dj_database_url
 from dotenv import load_dotenv
-import cloudinary
 
 # Load environment variables
 load_dotenv()
@@ -11,9 +12,9 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Load environment variables
-SECRET_KEY = os.getenv('SECRET_KEY')
-DATABASE_URL = os.getenv('DATABASE_URL')
-CLOUDINARY_URL = os.getenv('CLOUDINARY_URL')
+SECRET_KEY = os.getenv("SECRET_KEY")
+DATABASE_URL = os.getenv("DATABASE_URL")
+CLOUDINARY_URL = os.getenv("CLOUDINARY_URL")
 
 # Debug and hosts
 DEBUG = True
@@ -30,7 +31,7 @@ INSTALLED_APPS = [
     "drf_yasg",
     "cloudinary",
     "cloudinary_storage",
-    'django_json_widget',
+    "django_json_widget",
     "core",
     "contact",
     "projects",
@@ -46,7 +47,7 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
-    'django.middleware.csrf.CsrfViewMiddleware',
+    "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
@@ -72,34 +73,34 @@ TEMPLATES = [
     },
 ]
 
-#Database
-DATABASES = {
-    'default': dj_database_url.parse(DATABASE_URL)
-}
+# Database
+DATABASES = {"default": dj_database_url.parse(DATABASE_URL)}
 
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': ':memory:',  
+#         'NAME': ':memory:',
 #     }
 # }
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
-cloudinary.config( 
-  cloud_name = os.getenv('CLOUDINARY_CLOUD_NAME'),
-  api_key = os.getenv('CLOUDINARY_API_KEY'),
-  api_secret = os.getenv('CLOUDINARY_API_SECRET')
+cloudinary.config(
+    cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
+    api_key=os.getenv("CLOUDINARY_API_KEY"),
+    api_secret=os.getenv("CLOUDINARY_API_SECRET"),
 )
-CLOUDINARY_API_KEY=os.getenv('CLOUDINARY_API_KEY')
-CLOUDINARY_API_SECRET=os.getenv('CLOUDINARY_API_SECRET')
-CLOUDINARY_CLOUD_NAME = os.getenv('CLOUDINARY_CLOUD_NAME')
+CLOUDINARY_API_KEY = os.getenv("CLOUDINARY_API_KEY")
+CLOUDINARY_API_SECRET = os.getenv("CLOUDINARY_API_SECRET")
+CLOUDINARY_CLOUD_NAME = os.getenv("CLOUDINARY_CLOUD_NAME")
 
-AUTH_USER_MODEL = 'core.CustomUser'
+AUTH_USER_MODEL = "core.CustomUser"
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
-    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
+    {
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
+    },
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
@@ -112,9 +113,9 @@ USE_I18N = True
 USE_TZ = True
 
 # Static files
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
 
 # Default primary key field type
@@ -123,24 +124,25 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 if not DEBUG:
     SWAGGER_SETTINGS = {
-        'USE_SESSION_AUTH': False,
-        'LOGIN_URL': '',
-        'LOGOUT_URL': '',
+        "USE_SESSION_AUTH": False,
+        "LOGIN_URL": "",
+        "LOGOUT_URL": "",
     }
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com' 
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
-ORG_EMAIL = os.getenv('ORG_EMAIL')
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
+ORG_EMAIL = os.getenv("ORG_EMAIL")
 
 APPEND_SLASH = True
 ALLOWED_HOSTS = ["uya-backend.onrender.com", "localhost"]
 CORS_ALLOWED_ORIGINS = [
-    "https://united-youth-association-burma.vercel.app",
-    "https://www.uya-burma.org/"
+    "http://localhost:3000",
+    "https://uya-burma.org",
+    "https://www.uya-burma.org",
 ]
 CORS_ALLOW_CREDENTIALS = True
