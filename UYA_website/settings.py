@@ -148,5 +148,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "https://uya-burma.org",
     "https://www.uya-burma.org",
+    "https://united-youth-association-burma.vercel.app",
+    "https://www.united-youth-association-burma.vercel.app",
 ]
 CORS_ALLOW_CREDENTIALS = True
